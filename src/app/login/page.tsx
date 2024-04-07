@@ -36,7 +36,7 @@ export default function () {
 
                             />
                             <button
-                                className="my-6 flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-medium py-2 px-4 rounded-full w-full "
+                                className="my-6 flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-medium py-2 px-4 rounded-full w-full transition-colors duration-500 ease-out "
                                 onClick={async () => {
                                     const response = await login({
                                         email,

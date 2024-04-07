@@ -4,7 +4,7 @@ import AppBar from "@/packages/ui/components/AppBar";
 import Process from "@/packages/ui/components/Process";
 
 export default function Home() {
-  return ( <div className="">
+  return ( <div>
     <AppBar />
     <About />
     <Process />

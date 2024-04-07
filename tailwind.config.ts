@@ -18,7 +18,8 @@ const config: Config = {
         "tomatoOrange" : "#fe5948",
         "mediumturquoise": "#39cabb",
         "darkslateblue" : "#453f85",
-        "darkblue" : "#061a3a"
+        "darkblue" : "#061a3a",
+        "lightteal": "#ebf7f6" 
       }
     },
   },

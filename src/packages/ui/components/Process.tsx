@@ -21,5 +21,6 @@ export default function () {
             <ProcessCard imageName="icons/icon-6.png" title="View Professional Profile" description="Lorem ipsum dolor sit amet consectur adipiscing elit sed eiusmod ex tempor incididunt." number="02" bottomColor="tomatoOrange" />
             <ProcessCard imageName="icons/icon-7.png" title="Get Instant Doctor Appoinment" description="Lorem ipsum dolor sit amet consectur adipiscing elit sed eiusmod ex tempor incididunt." number="03" bottomColor="mediumturquoise" />
         </div>
+        <div className="bg-tomatoOrange"></div>
     </div>
 }

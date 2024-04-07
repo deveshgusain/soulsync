@@ -3,11 +3,8 @@ type propTypes = {
 }
 export default function ({ text }: propTypes) {
     return <div className="bg-darkslateblue  ">
-        <div className="pt-12">
-            {/* For App Bar */}
-        </div>
         <div className="relative">
-            <div className="text-5xl font-extrabold text-white text-center py-14">
+            <div className="text-5xl font-extrabold text-white text-center py-10">
                 {text}
             </div>
             <div className="absolute top-0 left-36">
