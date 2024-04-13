@@ -21,7 +21,7 @@ export default function () {
                         <AuthHeader text="Registration" />
                         <div className="px-7 pt-5">
                             <div className="flex">
-                                <div className="pr-10">
+                                <div className="pr-10 w-full">
                                     <InputBox
                                         label="First Name"
                                         placeholder="Enter your name"

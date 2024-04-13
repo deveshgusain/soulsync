@@ -7,7 +7,7 @@ type propType = {
 }
 
 export default function ({ label, placeholder, value, onChange, type }: propType) {
-    return <div className="pt-4">
+    return <div className="pt-4 w-full">
         <div>
             <label className="block text-slate-500 font-medium" >
                 {label}
