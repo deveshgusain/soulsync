@@ -21,10 +21,113 @@ model User {
   password    UserPassword?
   role        UserPermissionRole @default(PATIENT)
   createdDate DateTime           @default(now()) @map(name: "created")
+  doctor      Doctor?
+  patient     Patient?
 }
 
 model UserPassword {
   hash   String
   userId Int    @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Doctor {
+  userId            Int           @unique
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imgPath           String
+  about             String
+  totalRating       Int
+  speciality        String
+  specialitySummary String
+  educationSummary  String
+  courses           Course[]
+  awards            Award[]
+  experienceSummary String
+  experiences       Experience[]
+  skills            Skill[]
+  Appointment       Appointment[]
+  Review            Review[]
+}
+
+model Course {
+  courseId    Int    @id @default(autoincrement())
+  userId      Int
+  doctor      Doctor @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  collegeName String
+  courseName  String
+}
+
+model Award {
+  awardId   Int    @id @default(autoincrement())
+  userId    Int
+  doctor    Doctor @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  awardName String
+  awardYear String
+}
+
+model Experience {
+  experienceId Int    @id @default(autoincrement())
+  userId       Int
+  doctor       Doctor @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  institution  String
+  profile      String
+  from         String
+  to           String
+}
+
+model Skill {
+  skillId Int    @id @default(autoincrement())
+  userId  Int
+  doctor  Doctor @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  skill   String
+}
+
+model Patient {
+  userId        Int           @unique
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imgPath       String
+  dob           String?
+  gender        String?
+  age           Int?
+  mobile        Int?          @unique
+  address       String?
+  bloodGroup    String?
+  maritalStatus String?
+  note          String?
+  Appointment   Appointment[]
+  Review        Review[]
+}
+
+model Appointment {
+  appointment Int      @id @default(autoincrement())
+  doctorId    Int
+  doctor      Doctor   @relation(fields: [doctorId], references: [userId], onDelete: Cascade)
+  patientId   Int
+  patient     Patient  @relation(fields: [patientId], references: [userId], onDelete: Cascade)
+  date        DateTime
+  bookingDate DateTime @default(now()) @map(name: "created")
+  amount      Int
+  doctorNote  String
+  newPatient  Boolean
+  gender      String
+  status      Status   @default(New)
+}
+
+enum Status {
+  New
+  Confirm
+  Failure
+  Completed
+}
+
+model Review {
+  reviewId    Int      @unique
+  doctorId    Int
+  doctor      Doctor   @relation(fields: [doctorId], references: [userId], onDelete: Cascade)
+  patientId   Int
+  patient     Patient  @relation(fields: [patientId], references: [userId], onDelete: Cascade)
+  rating      String
+  createdDate DateTime @default(now()) @map(name: "created")
+  title       String
+  comment     String
 }

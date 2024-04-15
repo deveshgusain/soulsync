@@ -4,7 +4,7 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
 import { User } from "@prisma/client"
-import db from "@/db"
+import db from "../../../db"
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -43,7 +43,8 @@ export const register = async ({ firstName, lastName, email, password, role }: r
 
         return {
             message: "User Created",
-            jwtToken
+            jwtToken,
+            userId: user.id
         }
     } catch (error: any) {
 
