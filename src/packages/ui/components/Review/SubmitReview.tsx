@@ -2,14 +2,17 @@
 import { useState } from "react"
 import InputBox from "../InputBox";
 
-export default function () {
+
+export default function ({ doctorName, doctorId }: { doctorName: string, doctorId: string }) {
     const [star, setStar] = useState(0);
+    const [reviewTitle, setReviewTitle] = useState("");
+    const [reviewDescription, setReviewDescription] = useState("");
     return <div className="p-4 flex justify-center bg-lightteal min-h-screen ">
         <div className="w-1/2  rounded-lg mr-10">
             <div className="rounded-t-lg bg-darkslateblue">
                 <div className="p-6">
                     <div className="text-2xl font-bold text-white">
-                        Write a Review for Dr. Agnes Ayres
+                        {`Write a Review for Dr. ${doctorName}`}
                     </div>
                     <div className="text-lg text-slate-300">
                         Don’t hesitate to review me
@@ -32,17 +35,20 @@ export default function () {
                 <div className="border-b border-slate-300 mt-6">
                 </div>
                 <div className="pt-2">
-                    <InputBox label="Title of your review" placeholder="If you could say it in one sentance, what would you say?" value="" onChange={() => { }} />
+                    <InputBox label="Title of your review" placeholder="If you could say it in one sentance, what would you say?" value={reviewTitle} onChange={(e) => { setReviewTitle(e.target.value) }} />
                 </div>
                 <div className="pt-4">
                     <div className="block text-slate-500 font-medium">
                         Your review
                     </div>
-                    <textarea name="message" rows={6} placeholder="Write your review here...." className="min-w-full border rounded-lg border-slate-500 p-3 mt-2" ></textarea>
+                    <textarea name="message" rows={6} placeholder="Write your review here...." className="min-w-full border rounded-lg border-slate-500 p-3 mt-2" value={reviewDescription} onChange={(e) => { setReviewDescription(e.target.value) }}></textarea>
                 </div>
                 <div className="mt-6">
                     <button
                         className="flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-semibold text-lg py-4  rounded-full w-full transition-colors duration-500 ease-out "
+                        onClick={() => {
+                            
+                        }}  
                     >
                         Submit Review &nbsp;
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import RatingStar from "./RatingStar";
 
 type propTypes = {
+    doctorId: number,
     imageSrc: string,
     name: string,
     description: string,
@@ -9,9 +10,9 @@ type propTypes = {
     totalFeedback: number
 }
 
-export default function ({ imageSrc, name, description, totalFeedback, totalRating }: propTypes) {
+export default function ({ imageSrc, name, description, totalFeedback, totalRating, doctorId }: propTypes) {
     return <div className="m-10 shadow-lg w-fit rounded-3xl overflow-hidden">
-        <Link href={"/doctor"} >
+        <Link href={`/doctor/${doctorId}`} >
             <div className="w-fit overflow-hidden">
                 <img src={imageSrc} alt="doctor image" width={450} className=" transition-transform duration-500 ease delay-0 hover:scale-110" />
             </div>

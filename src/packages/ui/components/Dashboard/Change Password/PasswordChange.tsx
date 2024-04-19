@@ -1,6 +1,15 @@
+"use client"
+import { useState } from "react";
 import InputBox from "../../InputBox";
 
+import { toast } from "sonner";
+import { changePassword } from "@/packages/actions/user";
+
 export default function () {
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     return <div className="bg-white rounded-lg">
         <div className="text-darkblue p-8 text-xl font-extrabold ">
             Change Password
@@ -9,22 +18,39 @@ export default function () {
         <div className="p-8">
             <div className="flex justify-start">
                 <div className="mr-6 w-1/2">
-                    <InputBox label="Old Password" placeholder="" onChange={() => { }} value="" type="password"/>
+                    <InputBox label="Old Password" placeholder="" onChange={(e) => { setOldPassword(e.target.value) }} value={oldPassword} type="password" />
                 </div>
             </div>
             <div className="flex justify-start">
                 <div className="mr-6 w-1/2">
-                    <InputBox label="New Password" placeholder="" onChange={() => { }} value="" type="password"/>
+                    <InputBox label="New Password" placeholder="" onChange={(e) => { setNewPassword(e.target.value) }} value={newPassword} type="password" />
                 </div>
             </div>
             <div className="flex justify-start">
                 <div className="mr-6 w-1/2">
-                    <InputBox label="Confirm Password" placeholder="" onChange={() => { }} value="" type="password"/>
+                    <InputBox label="Confirm Password" placeholder="" onChange={(e) => { setConfirmPassword(e.target.value) }} value={confirmPassword} type="password" />
                 </div>
             </div>
             <div className="mt-6 flex items-center">
                 <button
                     className="w-fit flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-semibold text-lg py-3 px-6 rounded-full  transition-colors duration-500 ease-out "
+                    onClick={async () => {
+                        if (newPassword !== confirmPassword) {
+                            toast.error("Passwrods are not matching");
+                            setConfirmPassword("");
+                        } else {
+                            const token = localStorage.getItem("token");
+                            const response = await changePassword({ token: token || "", newPassword: newPassword, oldPassword: oldPassword });
+                            
+                            console.log(response);
+                            if (response.error) {
+                                toast.error(response.error);
+                            } else {
+                                toast.success(response.message);
+                            }
+                            
+                        }
+                    }}
                 >
                     Save Changes&nbsp;
 

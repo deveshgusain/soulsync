@@ -1,24 +1,13 @@
 "use server"
 
-import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
 import { User } from "@prisma/client"
 import db from "../../../db"
 
 import dotenv from 'dotenv';
+import { hash } from "./hashPassword";
 dotenv.config();
-
-async function hash(password: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const salt = crypto.randomBytes(8).toString("hex")
-
-        crypto.scrypt(password, salt, 64, (err, derivedKey) => {
-            if (err) reject(err);
-            resolve(salt + ":" + derivedKey.toString('hex'))
-        });
-    })
-}
 
 type registerType = Omit<User, 'id' | 'createdDate'> & { password: string };
 
@@ -39,7 +28,7 @@ export const register = async ({ firstName, lastName, email, password, role }: r
 
         const secret = process.env.JWT_SECRET;
 
-        const jwtToken = jwt.sign({ id: user.id }, secret || "")
+        const jwtToken = jwt.sign({ email: user.email }, secret || "")
 
         return {
             message: "User Created",

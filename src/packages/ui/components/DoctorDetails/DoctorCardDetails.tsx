@@ -1,4 +1,3 @@
-import Link from "next/link";
 import RatingStar from "../RatingStar";
 
 type propTypes = {
@@ -13,8 +12,8 @@ export default function ({ imageSrc, name, description, totalFeedback, totalRati
     return <div className="pb-6 w-full">
         <div className="rounded-3xl bg-white h-fit">
             <div className="flex p-5">
-                <div className="w-fit overflow-hidden rounded-3xl">
-                    <img src={imageSrc} alt="doctor image" width={150} />
+                <div className="w-fit overflow-hidden rounded-xl">
+                    <img src={imageSrc} alt="doctor image"  />
                 </div>
                 <div className="pl-8">
                     <div className="text-darkblue font-extrabold text-3xl ">

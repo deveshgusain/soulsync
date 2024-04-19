@@ -1,13 +1,41 @@
-export default function () {
+
+import { Experience, Skill } from "@prisma/client"
+
+type proptype = {
+    experienceSummary: string,
+    experiences: Experience[],
+    skills: Skill[]
+}
+
+
+export default function ({ experienceSummary, experiences, skills }: proptype) {
     return <div>
         <div className="text-darkblue text-xl font-bold">
             Professional Experience
         </div>
         <div className="text-slate-500 pt-5 text-md">
-            Dr. Agnes Ayres is a Maxillofacial Surgeon in New York, NY. Dr. Ayres has more experience with Congenital Cardiac Disorders and Cardiac Care than other specialists in his area. He is affiliated with medical facilities.
+            {experienceSummary}
         </div>
         <div className="pt-3">
-            <div>
+            {experiences.map(experience => (
+                <div>
+                    <div className="flex  items-center pt-2">
+                        <BulletPoint />
+                        <div className="text-darkblue pl-2 font-medium text-lg">
+                            {experience.institution}
+                        </div>
+                    </div>
+                    <div className="pl-5 flex">
+                        <div className="text-darkblue ">
+                            {`${experience.profile}`}
+                        </div>
+                        <div className="text-slate-500 pl-1 ">
+                            {`(${experience.from}-${experience.to})`}
+                        </div>
+                    </div>
+                </div>
+            ))}
+            {/* <div>
                 <div className="flex  items-center pt-2">
                     <BulletPoint />
                     <div className="text-darkblue pl-2 font-medium text-lg">
@@ -54,13 +82,21 @@ export default function () {
                         {"(Dec 2017-Till Now)"}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
         <div className="text-darkblue text-xl font-bold pt-7">
             Key Skills
         </div>
         <div className="pt-2">
-            <div className="flex  items-center pt-2">
+            {skills.map(skill => (
+                <div className="flex  items-center pt-2">
+                    <BulletPoint />
+                    <div className="text-darkblue pl-2">
+                        {`${skill.skill}`}
+                    </div>
+                </div>
+            ))}
+            {/* <div className="flex  items-center pt-2">
                 <BulletPoint />
                 <div className="text-darkblue pl-2">
                     {"Proficient in assisting all Gynecology & Obstetrics Surgeries."}
@@ -89,7 +125,7 @@ export default function () {
                 <div className="text-darkblue pl-2">
                     {"Able to perform ultrasound of Gynecology & Obstetrics"}
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
 }

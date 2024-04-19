@@ -34,9 +34,10 @@ model UserPassword {
 model Doctor {
   userId            Int           @unique
   user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  imgPath           String
+  imgPath           String        @default("/default-user.png")
   about             String
-  totalRating       Int
+  totalFeedback     Int           @default(0)
+  totalRating       Int           @default(0)
   speciality        String
   specialitySummary String
   educationSummary  String
@@ -85,7 +86,7 @@ model Skill {
 model Patient {
   userId        Int           @unique
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  imgPath       String
+  imgPath       String?       @default("/default-user.png")
   dob           String?
   gender        String?
   age           Int?
@@ -121,12 +122,12 @@ enum Status {
 }
 
 model Review {
-  reviewId    Int      @unique
+  reviewId    Int      @unique @default(autoincrement())
   doctorId    Int
   doctor      Doctor   @relation(fields: [doctorId], references: [userId], onDelete: Cascade)
   patientId   Int
   patient     Patient  @relation(fields: [patientId], references: [userId], onDelete: Cascade)
-  rating      String
+  rating      Int
   createdDate DateTime @default(now()) @map(name: "created")
   title       String
   comment     String

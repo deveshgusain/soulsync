@@ -1,4 +1,5 @@
-export default function () {
+export default function (props: any) {
+
     return <div className="bg-white rounded-lg">
         <div className="text-darkblue text-xl font-extrabold p-6">
             Doctors Appointment
@@ -15,7 +16,33 @@ export default function () {
                     </tr>
                 </thead>
                 <tbody className="p-6 text-md">
-                    <tr className="border-b">
+                    {props.appointments ?
+                        props.appointments.map((appointment: any) => {
+                            console.log("appointment:= ", appointment);
+
+                            return (
+                                <tr className="border-b">
+                                    <td><DoctorNameRow firstName={appointment.doctor.user.firstName} lastName={appointment.doctor.user.lastName} speciality={appointment.doctor.user.speciality} imgPath={appointment.doctor.imgPath} /></td>
+                                    <td><ApptDateRow date={appointment.bookingDate} /></td>
+                                    <td >
+                                        <div className="text-darkblue ">
+                                            {appointment.date.toDateString()}
+                                        </div>
+                                    </td>
+                                    <td >
+                                        <div className="text-darkblue ">
+                                            {appointment.amount}
+                                        </div>
+                                    </td>
+                                    <td >
+                                        <FailureStatusRow />
+                                    </td>
+                                </tr>
+                            )
+                        })
+                        : <></>
+                    }
+                    {/* <tr className="border-b">
                         <td><DoctorNameRow /></td>
                         <td><ApptDateRow /></td>
                         <td >
@@ -46,39 +73,39 @@ export default function () {
                             </div>
                         </td>
                         <td >
-                            <SuccessStatusRow  />
+                            <SuccessStatusRow />
                         </td>
-                    </tr>
+                    </tr> */}
                 </tbody>
             </table>
         </div>
     </div>
 }
 
-function DoctorNameRow() {
+function DoctorNameRow({ firstName, lastName, speciality, imgPath }: { firstName: string, lastName: string, speciality: string, imgPath: string }) {
     return <div className="flex items-center pl-4 py-4">
         <div>
-            <img src="resource/dashboard-doc-1.png" alt="" />
+            <img src={imgPath} alt="doctor" className="h-14 w-14 rounded-full"/>
         </div>
         <div className="pl-2">
             <div className="text-darkblue font-semibold">
-                Dr. Amelia Anna
+                {`Dr. ${firstName} ${lastName}`}
             </div>
             <div className="text-slate-500">
-                Cardiology
+                {speciality}
             </div>
         </div>
     </div>
 }
 
-function ApptDateRow() {
+function ApptDateRow({ date }: { date: Date }) {
     return <div className="flex items-center py-4">
         <div className="pl-2">
             <div className="text-darkblue ">
-                27 Apr 2024
+                {date.toDateString()}
             </div>
             <div className="text-mediumturquoise">
-                10:30AM
+                {date.toTimeString().substring(0,18)}
             </div>
         </div>
     </div>

@@ -8,8 +8,11 @@ import Link from "next/link";
 
 import AuthHeader from "@/packages/ui/components/AuthHeader"
 
+import { useRouter } from "next/navigation";
 
 export default function () {
+
+    const router = useRouter();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,13 +45,13 @@ export default function () {
                                         email,
                                         password,
                                     });
-                                    console.log("Response:= ", response);
 
                                     if (response.error) {
                                         toast.error(response.error);
                                     } else {
                                         toast.success(response.message);
                                         localStorage.setItem("token", response.jwtToken || "");
+                                        router.push("/")
                                     }
                                 }}
                             >

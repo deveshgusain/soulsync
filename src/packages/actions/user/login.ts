@@ -33,7 +33,7 @@ export async function login({ email, password }: { email: string, password: stri
         if (!checkPassword) throw new Error("Password didn't matched");
 
         const secret = process.env.JWT_SECRET;
-        const jwtToken = jwt.sign({ id: passwordhash[0].hash }, secret || "")
+        const jwtToken = jwt.sign({ email : email }, secret || "")
 
         return {
             message: "Logged in successfully",

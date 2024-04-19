@@ -3,26 +3,47 @@ import RatingStar from "../RatingStar";
 import ReviewCard from "./ReviewCard";
 import { useRouter } from "next/navigation";
 
-export default function () {
+
+import { Review } from "@prisma/client"
+import { useEffect, useState } from "react";
+
+type proptype = {
+    doctorId: string,
+    doctorName: string,
+    reviews: Review[],
+    totalFeedback: number,
+    totalRating: number
+}
+
+
+export default function ({doctorId, doctorName, totalFeedback, totalRating, reviews }: proptype) {
     const router = useRouter();
+    const [ratingPercentage, setRatingPercentage] = useState<number[]>([])
+    useEffect(() => {
+        let totals = [0, 0, 0, 0, 0];
+        reviews.map(review => {
+            totals[review.rating - 1]++;
+        });
+        setRatingPercentage(totals);
+    }, [])
     return <div>
         <div className="text-darkblue text-xl font-bold">
-            Dr. Agnes Ayres Reviews
+            {`Dr. ${doctorName} Reviews`}
         </div>
         <div className="grid grid-cols-5 pt-5">
             <div className="col-span-1 bg-darkslateblue items-center rounded-lg px-5 py-3">
                 <div className="text-mediumturquoise text-center text-3xl font-bold pb-2">
-                    4.5
+                    {totalFeedback ? totalRating / totalFeedback : 0}
                 </div>
-                <RatingStar totalFeedback={10} totalRating={40} size={6} />
+                <RatingStar totalFeedback={totalFeedback} totalRating={totalRating} size={6} />
                 <div className="text-white text-center pt-2">
-                    Based on 10 review
+                    {`Based on ${totalFeedback} review`}
                 </div>
             </div>
             <div className="col-span-4 pl-8 ">
                 <div className="flex items-center">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: '100%' }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[4] * 100 / totalRating : 0}` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -35,7 +56,7 @@ export default function () {
                 </div>
                 <div className="flex items-center pt-2">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: '80%' }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[3] * 100 / totalRating : 0}` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -48,7 +69,7 @@ export default function () {
                 </div>
                 <div className="flex items-center pt-2 ">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: '60%' }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[2] * 100 / totalRating : 0}` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -61,7 +82,7 @@ export default function () {
                 </div>
                 <div className="flex items-center pt-2">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: '40%' }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[1] * 100 / totalRating : 0}` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -74,7 +95,7 @@ export default function () {
                 </div>
                 <div className="flex items-center pt-2">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: '20%' }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[0] * 100 / totalRating : 0}` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -101,7 +122,9 @@ export default function () {
         <div className="w-fit ">
             <button
                 className="mt-6 flex justify-center bg-mediumturquoise hover:bg-darkslateblue transition-colors duration-500 ease-out delay-0 text-white font-medium py-4 px-6 rounded-full "
-                onClick={()=>{router.push("/submitReview")}}
+                onClick={() => {
+                    router.push(`/submitReview?doctorId=${doctorId}&doctorName=${doctorName}`)
+                }}
             >
                 Submit Review &nbsp;
 
