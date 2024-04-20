@@ -37,7 +37,7 @@ export const register = async ({ firstName, lastName, email, password, role }: r
         }
     } catch (error: any) {
 
-        console.log("Error:= ", error.message);
+        console.log("Failed to create the user\nError:= ", error.message);
         return {
             error: "Failed to create the user"
         }

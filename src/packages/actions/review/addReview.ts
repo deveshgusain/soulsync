@@ -5,7 +5,7 @@ import db from "../../../db"
 import getUserFromToken from "../patient/getUserFromToken"
 
 
-export const addReview = async ({ token, doctorId, comment, rating, title }: (Review & { token: string })) => {
+export const addReview = async ({ token, doctorId, comment, rating, title }: (Omit<Review, 'patientId' | 'reviewId' | 'createdDate'> & { token: string })) => {
     try {
         const user: any = await getUserFromToken({ token });
         const review = await db.review.create({
@@ -17,17 +17,25 @@ export const addReview = async ({ token, doctorId, comment, rating, title }: (Re
                 doctorId: typeof doctorId === "number" ? doctorId : parseInt(doctorId)
             }
         });
-        console.log("Appointment created successfully", appointment);
+
+        await db.doctor.update({
+            where: {
+                userId: doctorId
+            },
+            data: {
+                totalFeedback: { increment: 1 },
+                totalRating: { increment: rating }
+            }
+        })
 
         return {
-            message: "Appointment created successfully",
-            appointment
+            message: "Review created successfully",
         }
     } catch (error: any) {
 
-        console.log("Error:= ", error.message);
+        console.log("Failed to create review\nError:= ", error.message);
         return {
-            error: "Failed to create appointment"
+            error: "Failed to create review"
         }
     }
 }

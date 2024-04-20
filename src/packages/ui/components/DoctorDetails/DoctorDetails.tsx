@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { getDoctor } from "@/packages/actions/doctors";
+import { getDocAppointments } from "@/packages/actions/appointment/getDocAppointment";
 
 
 
@@ -20,6 +21,8 @@ export default function ({ doctorId }: { doctorId: number }) {
     const [startDate, setStartDate] = useState(new Date());
     const [slot, setSlot] = useState();
     const [doctor, setDoctor] = useState<any>();
+
+    const [appoinment, setAppoinment] = useState<any>([]);
 
     useEffect(() => {
         (async () => {
@@ -35,6 +38,32 @@ export default function ({ doctorId }: { doctorId: number }) {
             }
         })();
     }, []);
+
+    useEffect(() => {
+        async function getAppointment() {
+            const appoinments = await getDocAppointments({ doctorId: doctorId.toString(), date: startDate });
+            
+            let freeHours: string[] = [];
+            for (const hours of [
+                { hour: 9, value: '09:00 AM' },
+                { hour: 10, value: '10:00 AM' },
+                { hour: 11, value: '11:00 AM' },
+                { hour: 12, value: '12:00 AM' },
+                { hour: 1, value: '01:00 PM' },
+                { hour: 2, value: '02:00 PM' },
+                { hour: 3, value: '03:00 PM' },
+                { hour: 4, value: '04:00 PM' },
+                { hour: 5, value: '05:00 PM' }]) {
+
+                if (appoinments.hours && !appoinments.hours.includes(hours.hour)) {
+                    freeHours = [...freeHours, hours.value]
+                }
+            }
+            
+            setAppoinment(freeHours);
+        };
+        getAppointment();
+    }, [startDate]);
 
     return <div className="bg-lightteal min-h-screen grid grid-cols-3">
         {doctor ? (
@@ -88,11 +117,14 @@ export default function ({ doctorId }: { doctorId: number }) {
                                     {`Avaible slots for ${startDate.toDateString()}`}
                                 </div>
                                 <div className="grid grid-cols-3 pt-4 justify-between">
-                                    <Slot time={"10:00 am"} slot={slot} setSlot={setSlot} />
+                                    {appoinment.map((appoinment: any) => (
+                                        <Slot time={appoinment} slot={slot} setSlot={setSlot} />
+                                    ))}
+                                    {/* <Slot time={"10:00 am"} slot={slot} setSlot={setSlot} />
                                     <Slot time={"11:00 am"} slot={slot} setSlot={setSlot} />
                                     <Slot time={"01:00 pm"} slot={slot} setSlot={setSlot} />
                                     <Slot time={"02:00 pm"} slot={slot} setSlot={setSlot} />
-                                    <Slot time={"03:00 pm"} slot={slot} setSlot={setSlot} />
+                                    <Slot time={"03:00 pm"} slot={slot} setSlot={setSlot} /> */}
                                 </div>
                                 <button
                                     className="mt-6 flex justify-center bg-mediumturquoise hover:bg-darkslateblue transition-colors duration-500 ease-out delay-0 text-white font-medium py-4 px-6 rounded-full w-full "

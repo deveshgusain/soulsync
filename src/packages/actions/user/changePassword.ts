@@ -51,7 +51,7 @@ export async function changePassword({ token, oldPassword, newPassword }: { toke
             message: "Password changed successfully",
         }
     } catch (error: any) {
-        console.log(error.message);
+        console.log("correct credential:- " , error.message);
         return {
             error: "Enter correct credential"
         }

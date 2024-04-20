@@ -112,6 +112,8 @@ model Appointment {
   newPatient  Boolean
   gender      String
   status      Status   @default(New)
+
+  @@unique([doctorId, date])
 }
 
 enum Status {

@@ -14,7 +14,7 @@ export const getDoctorList = async () => {
         }
     } catch (error: any) {
 
-        console.log("Error:= ", error.message);
+        console.log("Failed to Fetch doctor list \nError:= ", error.message);
         return {
             error: "Failed to Fetch doctor list"
         }

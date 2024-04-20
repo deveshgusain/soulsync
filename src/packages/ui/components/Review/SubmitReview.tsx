@@ -1,9 +1,13 @@
 "use client"
 import { useState } from "react"
 import InputBox from "../InputBox";
+import { addReview } from "@/packages/actions/review/addReview";
 
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ({ doctorName, doctorId }: { doctorName: string, doctorId: string }) {
+    const router = useRouter();
     const [star, setStar] = useState(0);
     const [reviewTitle, setReviewTitle] = useState("");
     const [reviewDescription, setReviewDescription] = useState("");
@@ -46,9 +50,16 @@ export default function ({ doctorName, doctorId }: { doctorName: string, doctorI
                 <div className="mt-6">
                     <button
                         className="flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-semibold text-lg py-4  rounded-full w-full transition-colors duration-500 ease-out "
-                        onClick={() => {
-                            
-                        }}  
+                        onClick={async () => {
+                            const token = localStorage.getItem("token");
+                            const response = await addReview({ token: token || "", comment: reviewDescription, doctorId: parseInt(doctorId), rating: star, title: reviewTitle });
+                            if(response.error) {
+                                toast.error(response.error);
+                            } else {
+                                toast.message(response.message);
+                                router.back();
+                            }
+                        }}
                     >
                         Submit Review &nbsp;
 

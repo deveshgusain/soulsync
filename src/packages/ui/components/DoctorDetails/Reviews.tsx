@@ -10,21 +10,26 @@ import { useEffect, useState } from "react";
 type proptype = {
     doctorId: string,
     doctorName: string,
-    reviews: Review[],
+    reviews: any[],
     totalFeedback: number,
-    totalRating: number
+    totalRating: number,
 }
 
 
-export default function ({doctorId, doctorName, totalFeedback, totalRating, reviews }: proptype) {
+export default function ({ doctorId, doctorName, totalFeedback, totalRating, reviews }: proptype) {
     const router = useRouter();
-    const [ratingPercentage, setRatingPercentage] = useState<number[]>([])
+    const [ratingPercentage, setRatingPercentage] = useState<number[]>([]);
+
     useEffect(() => {
+        console.log("reviews:= ", reviews);
+
         let totals = [0, 0, 0, 0, 0];
         reviews.map(review => {
             totals[review.rating - 1]++;
         });
         setRatingPercentage(totals);
+        console.log(totals);
+        
     }, [])
     return <div>
         <div className="text-darkblue text-xl font-bold">
@@ -33,7 +38,7 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
         <div className="grid grid-cols-5 pt-5">
             <div className="col-span-1 bg-darkslateblue items-center rounded-lg px-5 py-3">
                 <div className="text-mediumturquoise text-center text-3xl font-bold pb-2">
-                    {totalFeedback ? totalRating / totalFeedback : 0}
+                    {totalFeedback ? (totalRating / totalFeedback).toFixed(1) : 0}
                 </div>
                 <RatingStar totalFeedback={totalFeedback} totalRating={totalRating} size={6} />
                 <div className="text-white text-center pt-2">
@@ -43,7 +48,7 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
             <div className="col-span-4 pl-8 ">
                 <div className="flex items-center">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[4] * 100 / totalRating : 0}` }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[4] * 100 / totalFeedback : 0}%` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -56,7 +61,7 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
                 </div>
                 <div className="flex items-center pt-2">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[3] * 100 / totalRating : 0}` }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[3] * 100 / totalFeedback : 0}%` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -69,7 +74,7 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
                 </div>
                 <div className="flex items-center pt-2 ">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[2] * 100 / totalRating : 0}` }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[2] * 100 / totalFeedback : 0}%` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -82,7 +87,7 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
                 </div>
                 <div className="flex items-center pt-2">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[1] * 100 / totalRating : 0}` }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[1] * 100 / totalFeedback : 0}%` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -95,7 +100,7 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
                 </div>
                 <div className="flex items-center pt-2">
                     <div className="w-full bg-slate-300 rounded-md h-4 ">
-                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[0] * 100 / totalRating : 0}` }}></div>
+                        <div className="bg-mediumturquoise h-4 rounded-full" style={{ width: `${totalFeedback ? ratingPercentage[0] * 100 / totalFeedback : 0}%` }}></div>
                     </div>
                     <div className="pl-6">
                         <svg className={`w-5 h-5 text-yellow-500  ms-1`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -110,14 +115,26 @@ export default function ({doctorId, doctorName, totalFeedback, totalRating, revi
         </div>
         <div className="border mt-8"></div>
         <div className="">
-            <ReviewCard imageSrc="resource/review-1.jpg" rating={4} name="Agnes Ayres" date="March 20, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
+            {reviews.map(review => (
+                <>
+                    <ReviewCard
+                        imageSrc={review.patient.imgPath}
+                        rating={review.rating}
+                        name={`${review.patient.user.firstName} ${review.patient.user.lastName}`}
+                        date={review.createdDate.toDateString()}
+                        description={review.comment} />
+
+                    <div className="border mt-4"></div>
+                </>
+            ))}
+            {/* <ReviewCard imageSrc="resource/review-1.jpg" rating={4} name="Agnes Ayres" date="March 20, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
             <div className="border mt-4"></div>
             <ReviewCard imageSrc="resource/review-2.jpg" rating={5} name="Mary Astor" date="March 24, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
             <div className="border mt-4"></div>
             <ReviewCard imageSrc="resource/review-4.jpg" rating={3} name="Anderson" date="April 01, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
             <div className="border mt-4"></div>
             <ReviewCard imageSrc="resource/review-5.jpg" rating={4} name="Bradshaw" date="April 05, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
-            <div className="border mt-4"></div>
+            <div className="border mt-4"></div> */}
         </div>
         <div className="w-fit ">
             <button

@@ -1,6 +1,5 @@
 "use server"
 
-import Jwt from "jsonwebtoken";
 import db from "../../../db"
 import getUserFromToken from "./getUserFromToken";
 
@@ -9,7 +8,6 @@ export const getProfile = async ({ token }: { token: string }) => {
     try {
         // Fetch User details
         const user = await getUserFromToken({ token })
-        console.log("User details:= ", user);
 
         // Fetch Profile Details
         const profile = await db.patient.findUnique({
@@ -17,7 +15,6 @@ export const getProfile = async ({ token }: { token: string }) => {
                 userId: user?.id
             }
         })
-        console.log("Profile details:= ", profile);
 
         // Fetch appointments details
         const appointments = await db.appointment.findMany({
@@ -41,8 +38,6 @@ export const getProfile = async ({ token }: { token: string }) => {
             }
         })
 
-
-        console.log("Appointments details:= ", appointments);
         // Fetch reviews details
         const totalReviews = await db.review.count({
             where: {
@@ -55,7 +50,7 @@ export const getProfile = async ({ token }: { token: string }) => {
         }
     } catch (error: any) {
 
-        console.log("Error:= ", error.message);
+        console.log("Failed to update the patient infomation\nError:= ", error.message);
         return {
             error: "Failed to update the patient infomation"
         }

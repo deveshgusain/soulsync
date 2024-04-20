@@ -33,14 +33,14 @@ export async function login({ email, password }: { email: string, password: stri
         if (!checkPassword) throw new Error("Password didn't matched");
 
         const secret = process.env.JWT_SECRET;
-        const jwtToken = jwt.sign({ email : email }, secret || "")
+        const jwtToken = jwt.sign({ email: email }, secret || "")
 
         return {
             message: "Logged in successfully",
             jwtToken
         }
     } catch (error: any) {
-        console.log(error.message);
+        console.log("Wrong Credentials:- ", error.message);
         return {
             error: "Enter correct credential"
         }

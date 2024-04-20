@@ -23,10 +23,10 @@ export default function (props: any) {
                             return (
                                 <tr className="border-b">
                                     <td><DoctorNameRow firstName={appointment.doctor.user.firstName} lastName={appointment.doctor.user.lastName} speciality={appointment.doctor.user.speciality} imgPath={appointment.doctor.imgPath} /></td>
-                                    <td><ApptDateRow date={appointment.bookingDate} /></td>
+                                    <td><ApptDateRow date={appointment.date} /></td>
                                     <td >
                                         <div className="text-darkblue ">
-                                            {appointment.date.toDateString()}
+                                            {appointment.bookingDate.toLocaleDateString()}
                                         </div>
                                     </td>
                                     <td >
@@ -105,7 +105,7 @@ function ApptDateRow({ date }: { date: Date }) {
                 {date.toDateString()}
             </div>
             <div className="text-mediumturquoise">
-                {date.toTimeString().substring(0,18)}
+                {date.toLocaleTimeString()}
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ export default function (props: propType) {
 
     const [doctorNote, setDoctorNote] = useState("")
 
+
     return <div className="p-4 grid grid-cols-3 bg-lightteal min-h-screen ">
         <div className="col-span-2 rounded-lg mr-10">
             <div className="rounded-t-lg bg-darkslateblue">
@@ -143,7 +144,7 @@ export default function (props: propType) {
                         className="flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-semibold text-lg py-4  rounded-full w-full transition-colors duration-500 ease-out "
                         onClick={async () => {
                             const token = localStorage.getItem("token") || "";
-                            const appointment = await postAppointment({ token, amount: 500, bookingDate: new Date(props.date), doctorId: parseInt(props.doctorId), doctorNote, gender: male ? "Male" : "Female", newPatient: newPatient ? true : false });
+                            const appointment = await postAppointment({ token, amount: 500, bookingDate: new Date(props.date), time: props.time, doctorId: parseInt(props.doctorId), doctorNote, gender: male ? "Male" : "Female", newPatient: newPatient ? true : false });
                             console.log(appointment);
                             router.push("/dashboard")
                         }}

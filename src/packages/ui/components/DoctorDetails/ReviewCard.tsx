@@ -14,7 +14,7 @@ export default function ({ imageSrc, name, description, rating, date }: propType
         <div className="rounded-xl bg-white h-fit">
             <div className="flex p-5">
                 <div className="w-fit overflow-hidden rounded-xl">
-                    <img src={imageSrc} alt="doctor image" width={180} />
+                    <img src={imageSrc} alt="doctor image" width={180} className="h-24 w-24" />
                 </div>
                 <div className="pl-8">
                     <RatingStar totalRating={rating} totalFeedback={1} size={4} />
