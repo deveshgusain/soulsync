@@ -71,8 +71,7 @@ export default function () {
                             </button>
                         </div>
                         :
-                        <></>
-
+                        <div></div>
             }
 
         </div>
