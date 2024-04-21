@@ -5,7 +5,12 @@ import InputBox from "../../InputBox";
 import { toast } from "sonner";
 import { changePassword } from "@/packages/actions/user";
 
+import { useRouter } from "next/navigation";
+
 export default function () {
+
+    const router = useRouter();
+    
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,6 +51,7 @@ export default function () {
                                 toast.error(response.error);
                             } else {
                                 toast.success(response.message);
+                                router.push("/login")
                             }
                             
                         }
