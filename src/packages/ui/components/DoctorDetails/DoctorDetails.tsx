@@ -11,18 +11,24 @@ import { useRouter } from 'next/navigation'
 import "react-datepicker/dist/react-datepicker.css";
 import { getDoctor } from "@/packages/actions/doctors";
 import { getDocAppointments } from "@/packages/actions/appointment/getDocAppointment";
+import { checkUser } from "@/packages/actions/user/checkUser";
+import { toast } from "sonner";
 
 
 
 export default function ({ doctorId }: { doctorId: number }) {
     const router = useRouter()
 
+    const initialDate = new Date();
+    initialDate.setDate(new Date().getDate() + 1);
+
     const [selected, setSelected] = useState("overview");
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(initialDate);
     const [slot, setSlot] = useState();
     const [doctor, setDoctor] = useState<any>();
 
     const [appoinment, setAppoinment] = useState<any>([]);
+
 
     useEffect(() => {
         (async () => {
@@ -42,7 +48,7 @@ export default function ({ doctorId }: { doctorId: number }) {
     useEffect(() => {
         async function getAppointment() {
             const appoinments = await getDocAppointments({ doctorId: doctorId.toString(), date: startDate });
-            
+
             let freeHours: string[] = [];
             for (const hours of [
                 { hour: 9, value: '09:00 AM' },
@@ -59,7 +65,7 @@ export default function ({ doctorId }: { doctorId: number }) {
                     freeHours = [...freeHours, hours.value]
                 }
             }
-            
+
             setAppoinment(freeHours);
         };
         getAppointment();
@@ -106,11 +112,17 @@ export default function ({ doctorId }: { doctorId: number }) {
                             </div>
                         </div>
                         <div className="p-6">
-                            <div className="flex justify-around p-4 bg-lightteal rounded-lg ">
-                                <DatePicker className="bg-lightteal text-slate-500 w-52" selected={startDate} onChange={(date: Date) => setStartDate(date)} />
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-slate-500">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                                </svg>
+                            <div className="flex  p-4 bg-lightteal rounded-lg items-center ">
+                                <DatePicker
+                                    minDate={initialDate}
+                                    showIcon
+                                    className="bg-lightteal text-slate-500 w-full"
+                                    selected={startDate}
+                                    onChange={(date: Date) => setStartDate(date)}
+                                    icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-slate-500 items-center">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                                    </svg>}
+                                />
                             </div>
                             <div className="pt-6">
                                 <div className="text-darkblue text-md font-bold">
@@ -120,15 +132,12 @@ export default function ({ doctorId }: { doctorId: number }) {
                                     {appoinment.map((appoinment: any) => (
                                         <Slot time={appoinment} slot={slot} setSlot={setSlot} />
                                     ))}
-                                    {/* <Slot time={"10:00 am"} slot={slot} setSlot={setSlot} />
-                                    <Slot time={"11:00 am"} slot={slot} setSlot={setSlot} />
-                                    <Slot time={"01:00 pm"} slot={slot} setSlot={setSlot} />
-                                    <Slot time={"02:00 pm"} slot={slot} setSlot={setSlot} />
-                                    <Slot time={"03:00 pm"} slot={slot} setSlot={setSlot} /> */}
                                 </div>
                                 <button
                                     className="mt-6 flex justify-center bg-mediumturquoise hover:bg-darkslateblue transition-colors duration-500 ease-out delay-0 text-white font-medium py-4 px-6 rounded-full w-full "
-                                    onClick={() => router.push(`/bookAppointment?doctorId=${doctorId}&date=${startDate}&time=${slot}&doctorName=${doctor.name}`)}
+                                    onClick={() => {
+                                        router.push(`/bookAppointment?doctorId=${doctorId}&date=${startDate}&time=${slot}&doctorName=${doctor.name}`);
+                                    }}
                                 >
                                     Book Appoinment &nbsp;
 
@@ -142,7 +151,8 @@ export default function ({ doctorId }: { doctorId: number }) {
                     </div>
                 </div>
             </>)
-            : (<div> Empty</div>)}
+            : (<div> </div>)
+        }
     </div >
 }
 

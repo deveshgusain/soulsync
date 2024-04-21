@@ -21,14 +21,18 @@ async function verify(password: string, hash: string) {
 
 export async function login({ email, password }: { email: string, password: string }) {
     try {
-        const passwordhash = await db.userPassword.findMany({
+        const passwordhash = await db.userPassword.findFirst({
             where: {
                 user: {
-                    email
+                    email: {
+                        equals: email
+                    }
                 }
             }
         });
-        const checkPassword = await verify(password, passwordhash[0].hash || "");
+        console.log("Password Hash", passwordhash);
+
+        const checkPassword = await verify(password, passwordhash?.hash || "");
 
         if (!checkPassword) throw new Error("Password didn't matched");
 

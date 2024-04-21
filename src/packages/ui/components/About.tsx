@@ -19,13 +19,13 @@ export default function () {
         </div>
         <div className="pt-24 pr-10 pl-10">
             <div className="text-mediumturquoise font-semibold">
-                ABOUT DOCPRO
+                ABOUT SOULSYNC
             </div>
-            <div className="text-darkblue  pt-6 text-5xl font-extrabold ">
-                Bring care to your home with one click
+            <div className="text-darkblue  pt-6 text-4xl font-extrabold ">
+                Expert online doctor consultations. Anytime, anywhere.
             </div>
-            <div className="pt-6 text-lg text-slate-400 pb-56">
-                Lorem ipsum dolor sit amet consectur adipiscing elit sed eiusmod ex tempor incididunt labore dolore magna aliquaenim ad minim veniam quis nostrud exercitation ullamco laboris.
+            <div className="pt-6 text-lg text-slate-400 pb-40">
+                Experience the future of healthcare with our online doctor consultations. Our platform connects you with expert physicians, providing convenient access to quality care from the comfort of your home. With us, you can receive personalized medical advice and treatment plans tailored to your needs, all at your fingertips.
             </div>
         </div>
     </div>

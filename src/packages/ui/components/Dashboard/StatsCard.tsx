@@ -2,12 +2,12 @@ type propType = {
     iconSVG: React.ReactNode,
     count: number,
     title: string,
-    description: string,
+    // description: string,
     topImage: string,
     bottomImage: string
 }
 
-export default function ({ iconSVG, count, title, description, topImage, bottomImage }: propType) {
+export default function ({ iconSVG, count, title, topImage, bottomImage }: propType) {
     return <div className="bg-white px-8 py-14 shadow-xl rounded-lg relative z-0 overflow-hidden">
         <div className="z-10 absolute rounded-full shadow-2xl w-fit p-6 shadow-gray-300 bg-white">
             {iconSVG}
@@ -19,7 +19,7 @@ export default function ({ iconSVG, count, title, description, topImage, bottomI
             {title}
         </div>
         <div className=" text-slate-500 pt-3 text-md z-10 pb-6">
-            {description}
+            {/* {description} */}
         </div>
         <div className="absolute top-0 left-0 z-0">
             <img src={topImage} alt="" />

@@ -29,7 +29,7 @@ export const addReview = async ({ token, doctorId, comment, rating, title }: (Om
         })
 
         return {
-            message: "Review created successfully",
+            message: "Review added successfully",
         }
     } catch (error: any) {
 

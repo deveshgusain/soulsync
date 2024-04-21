@@ -1,9 +1,8 @@
 "use client"
+
 import { useEffect, useState } from "react";
 import InputBox from "../../InputBox";
 import { updateProfile } from "@/packages/actions/patient";
-
-import { useRouter } from "next/navigation";
 
 type propType = {
     firstName: string,
@@ -20,10 +19,7 @@ type propType = {
     setUser: (user: any) => void
 }
 
-
 export default function (props: propType) {
-
-    const router = useRouter();
 
     const [edit, setEdit] = useState(false);
     const [firstName, setfirstName] = useState("");
@@ -31,26 +27,26 @@ export default function (props: propType) {
     const [email, setemail] = useState("")
     const [dob, setdob] = useState("")
     const [gender, setgender] = useState("")
-    const [age, setage] = useState<any>(0)
-    const [mobile, setmobile] = useState<any>(0)
+    const [age, setage] = useState<any>()
+    const [mobile, setmobile] = useState<any>()
     const [address, setaddress] = useState("")
     const [bloodGroup, setbloodGroup] = useState("")
     const [maritalStatus, setmaritalStatus] = useState("")
     const [note, setnote] = useState("")
 
     useEffect(() => {
-        setfirstName(props.firstName)
-        setlastName(props.lastName);
-        setemail(props.email);
-        setdob(props.dob);
-        setgender(props.gender);
-        setage(props.age);
-        setmobile(props.mobile);
-        setaddress(props.address);
-        setbloodGroup(props.bloodGroup);
-        setmaritalStatus(props.maritalStatus);
-        setnote(props.note);
-        console.log(props);
+        console.log("Props:-", props);
+        setfirstName(props.firstName ? props.firstName : "")
+        setlastName(props.lastName ? props.lastName : "");
+        setemail(props.email ? props.email : "");
+        setdob(props.dob ? props.dob : "");
+        setgender(props.gender ? props.gender : "");
+        setage(props.age ? props.age : "");
+        setmobile(props.mobile ? props.mobile : "");
+        setaddress(props.address ? props.address : "");
+        setbloodGroup(props.bloodGroup ? props.bloodGroup : "");
+        setmaritalStatus(props.maritalStatus ? props.maritalStatus : "");
+        setnote(props.note ? props.note : "");
     }, [edit])
     return <div className="bg-white rounded-lg">
         <div className="text-darkblue p-8 text-xl font-extrabold flex justify-between">
@@ -112,7 +108,7 @@ export default function (props: propType) {
                             className="w-fit flex justify-center bg-mediumturquoise hover:bg-darkslateblue text-white font-semibold text-lg py-3 px-6 rounded-full  transition-colors duration-500 ease-out "
                             onClick={async () => {
                                 const token = localStorage.getItem("token");
-                                const response = await updateProfile({ token: token || "", imgPath:address, dob, gender, age: parseInt(age), mobile: parseInt(mobile), address, bloodGroup, maritalStatus, note });
+                                const response = await updateProfile({ token: token || "", firstName,lastName,email, imgPath: address, dob, gender, age: parseInt(age), mobile: parseInt(mobile), address, bloodGroup, maritalStatus, note });
                                 props.setUser(response.user);
                                 setEdit(false)
                             }}
@@ -125,7 +121,7 @@ export default function (props: propType) {
                         </button>
                         <button
                             className="w-fit flex justify-center bg-gray-400 hover:bg-darkblue text-white font-semibold text-lg py-3 px-6 ml-4  rounded-full  transition-colors duration-500 ease-out "
-                            onClick={() => { setEdit(false) }}
+                            onClick={(e) => { setEdit(false) }}
                         >
                             Cancel &nbsp;
 

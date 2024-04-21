@@ -23,7 +23,6 @@ export default function () {
         async function getUser() {
             const token = localStorage.getItem("token");
             const response = await getProfile({ token: token || "" });
-            console.log("profile Response:= ", response);
 
             setUser(response)
         };
@@ -50,7 +49,7 @@ export default function () {
                                         </svg>}
                                         count={user.appointments ? user.appointments.length : 0}
                                         title="Total Appointment"
-                                        description="Lorem ipsum dolor amet eiusmod tempor."
+                                        // description="Lorem ipsum dolor amet eiusmod tempor."
                                         topImage="shape/shape-79.png"
                                         bottomImage="shape/shape-80.png"
                                     />
@@ -63,7 +62,7 @@ export default function () {
                                         }
                                         count={user.totalReviews}
                                         title="Reviews"
-                                        description="Lorem ipsum dolor amet eiusmod tempor."
+                                        // description="Lorem ipsum dolor amet eiusmod tempor."
                                         topImage="shape/shape-81.png"
                                         bottomImage="shape/shape-82.png"
                                     />

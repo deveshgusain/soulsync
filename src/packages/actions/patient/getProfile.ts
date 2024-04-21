@@ -19,7 +19,10 @@ export const getProfile = async ({ token }: { token: string }) => {
         // Fetch appointments details
         const appointments = await db.appointment.findMany({
             where: {
-                patientId: user?.id
+                patientId: user?.id,
+                date  : {
+                    gte : new Date()
+                }
             },
             include: {
                 doctor: {
@@ -35,6 +38,9 @@ export const getProfile = async ({ token }: { token: string }) => {
                         }
                     }
                 }
+            },
+            orderBy : {
+                bookingDate : "desc"
             }
         })
 
@@ -50,9 +56,9 @@ export const getProfile = async ({ token }: { token: string }) => {
         }
     } catch (error: any) {
 
-        console.log("Failed to update the patient infomation\nError:= ", error.message);
+        console.log("Failed to fetch the patient infomation\nError:= ", error.message);
         return {
-            error: "Failed to update the patient infomation"
+            error: "Failed to fetch the patient infomation"
         }
     }
 }

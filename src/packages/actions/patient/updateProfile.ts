@@ -4,9 +4,9 @@ import { Patient } from "@prisma/client"
 import db from "../../../db"
 import getUserFromToken from "./getUserFromToken"
 
-export const updateProfile = async ({ token, imgPath, dob, gender, age, mobile, address, bloodGroup, maritalStatus, note }: (Omit<Patient, 'userId'> & { token: string })) => {
+export const updateProfile = async ({ token, imgPath, dob, gender, age, mobile, address, bloodGroup, maritalStatus, note, firstName, lastName, email }: (Omit<Patient, 'userId'> & { token: string, firstName: string, lastName: string, email: string })) => {
     try {
-        const user: any = await getUserFromToken({ token });
+        let user: any = await getUserFromToken({ token });
         const updatedPatient = await db.patient.upsert({
             where: { userId: user?.id },
             update: {
@@ -33,6 +33,19 @@ export const updateProfile = async ({ token, imgPath, dob, gender, age, mobile, 
                 note
             }
         });
+        
+        if(user.firstName !== firstName || user.lastName !== lastName || user.email !== email ) {
+            user = await db.user.update({
+                where  : {
+                    id : user.id
+                }, 
+                data  :{
+                    firstName,
+                    lastName,
+                    email
+                }
+            })
+        }
 
         return {
             message: "User updated",

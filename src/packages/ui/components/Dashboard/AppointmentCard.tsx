@@ -18,7 +18,6 @@ export default function (props: any) {
                 <tbody className="p-6 text-md">
                     {props.appointments ?
                         props.appointments.map((appointment: any) => {
-                            console.log("appointment:= ", appointment);
 
                             return (
                                 <tr className="border-b">
@@ -35,47 +34,13 @@ export default function (props: any) {
                                         </div>
                                     </td>
                                     <td >
-                                        <FailureStatusRow />
+                                        <SuccessStatusRow />
                                     </td>
                                 </tr>
                             )
                         })
                         : <></>
                     }
-                    {/* <tr className="border-b">
-                        <td><DoctorNameRow /></td>
-                        <td><ApptDateRow /></td>
-                        <td >
-                            <div className="text-darkblue ">
-                                24 Apr, 2024
-                            </div>
-                        </td>
-                        <td >
-                            <div className="text-darkblue ">
-                                $150.00
-                            </div>
-                        </td>
-                        <td >
-                            <FailureStatusRow />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><DoctorNameRow /></td>
-                        <td><ApptDateRow /></td>
-                        <td >
-                            <div className="text-darkblue ">
-                                24 Apr, 2024
-                            </div>
-                        </td>
-                        <td >
-                            <div className="text-darkblue ">
-                                $150.00
-                            </div>
-                        </td>
-                        <td >
-                            <SuccessStatusRow />
-                        </td>
-                    </tr> */}
                 </tbody>
             </table>
         </div>
