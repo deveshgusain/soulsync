@@ -1,4 +1,3 @@
-import { BlockList } from "net"
 
 type propType = {
     type?: string,

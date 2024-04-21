@@ -1,4 +1,3 @@
-import Link from "next/link";
 import RatingStar from "../RatingStar";
 
 type propTypes = {

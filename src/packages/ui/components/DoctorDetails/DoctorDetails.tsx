@@ -11,8 +11,6 @@ import { useRouter } from 'next/navigation'
 import "react-datepicker/dist/react-datepicker.css";
 import { getDoctor } from "@/packages/actions/doctors";
 import { getDocAppointments } from "@/packages/actions/appointment/getDocAppointment";
-import { checkUser } from "@/packages/actions/user/checkUser";
-import { toast } from "sonner";
 
 
 

@@ -1,13 +1,11 @@
 "use server"
 
 import crypto from "crypto";
-import jwt from "jsonwebtoken";
 
 import db from "../../../db"
 
 import dotenv from 'dotenv';
 import getUserFromToken from "../patient/getUserFromToken";
-import { User } from "@prisma/client";
 import { hash } from "./hashPassword";
 dotenv.config();
 
@@ -24,7 +22,7 @@ async function verify(password: string, hash: string) {
 
 export async function changePassword({ token, oldPassword, newPassword }: { token: string, oldPassword: string, newPassword: string }) {
     try {
-        const user: User | null = await getUserFromToken({ token });
+        const user: any = await getUserFromToken({ token });
         const passwordhash = await db.userPassword.findMany({
             where: {
                 user: {
@@ -51,7 +49,7 @@ export async function changePassword({ token, oldPassword, newPassword }: { toke
             message: "Password changed successfully",
         }
     } catch (error: any) {
-        
+
         return {
             error: "Enter correct credential"
         }
