@@ -33,7 +33,7 @@ export default function ({ doctorName, about, specialitySummary, educationSummar
         </div>
         <div className="pt-3">
             {courses.map(course => (
-                <div className="flex text-md items-center pt-2">
+                <div key={course.courseId} className="flex text-md items-center pt-2">
                     <BulletPoint />
                     <div className="text-darkblue pl-2 font-medium">
                         {course.collegeName}
@@ -43,40 +43,13 @@ export default function ({ doctorName, about, specialitySummary, educationSummar
                     </div>
                 </div>
             ))}
-            {/* <div className="flex text-md items-center pt-2">
-                <BulletPoint />
-                <div className="text-darkblue pl-2 font-medium">
-                    New York Medical College
-                </div>
-                <div className="text-slate-500 pl-2">
-                    - Doctor of Medicine
-                </div>
-            </div>
-            <div className="flex text-md items-center pt-2">
-                <BulletPoint />
-                <div className="text-darkblue pl-2 font-medium">
-                    Montefiore Medical Center
-                </div>
-                <div className="text-slate-500 pl-2">
-                    - Residency in Internal Medicin
-                </div>
-            </div> */}
-            {/* <div className="flex text-md items-center pt-2">
-                <BulletPoint />
-                <div className="text-darkblue pl-2 font-medium">
-                    New York Medical College
-                </div>
-                <div className="text-slate-500 pl-2">
-                    - Master Internal Medicine
-                </div>
-            </div> */}
         </div>
         <div className="text-darkblue text-xl font-bold pt-7">
             Awards
         </div>
         <div className="pt-3">
             {awards.map(award => (
-                <div className="flex text-md items-center pt-2">
+                <div key={award.awardId} className="flex text-md items-center pt-2">
                     <BulletPoint />
                     <div className="text-darkblue pl-2 font-medium">
                         {award.awardName}
@@ -86,38 +59,9 @@ export default function ({ doctorName, about, specialitySummary, educationSummar
                     </div>
                 </div>
             ))}
-            {/* <div className="flex text-md items-center pt-2">
-                <BulletPoint />
-                <div className="text-darkblue pl-2 font-medium">
-                    {"Award win by American Dental Council of America"}
-                </div>
-                <div className="text-slate-500 pl-1">
-                    {"(2006)"}
-                </div>
-            </div>
-            <div className="flex text-md items-center pt-2">
-                <BulletPoint />
-                <div className="text-darkblue pl-2 font-medium">
-                    {"Award win by Karnataka State Dental Council"}
-                </div>
-                <div className="text-slate-500 pl-1 ">
-                    {"(2009)"}
-                </div>
-            </div>
-            <div className="flex text-md items-center pt-2">
-                <BulletPoint />
-                <div className="text-darkblue pl-2 font-medium">
-                    {"Award win by Manchester Academy of Oral Medicine"}
-                </div>
-                <div className="text-slate-500 pl-1  ">
-                    {"(2015)"}
-                </div>
-            </div> */}
         </div>
     </div>
 }
-
-
 
 function BulletPoint({ }) {
     return <div className="rounded-full h-3 w-3 border-4 border-slate-300">

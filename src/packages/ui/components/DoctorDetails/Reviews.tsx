@@ -21,14 +21,12 @@ export default function ({ doctorId, doctorName, totalFeedback, totalRating, rev
     const [ratingPercentage, setRatingPercentage] = useState<number[]>([]);
 
     useEffect(() => {
-        console.log("reviews:= ", reviews);
 
         let totals = [0, 0, 0, 0, 0];
         reviews.map(review => {
             totals[review.rating - 1]++;
         });
         setRatingPercentage(totals);
-        console.log(totals);
         
     }, [])
     return <div>
@@ -116,7 +114,7 @@ export default function ({ doctorId, doctorName, totalFeedback, totalRating, rev
         <div className="border mt-8"></div>
         <div className="">
             {reviews.map(review => (
-                <>
+                <div key={review.reviewId}>
                     <ReviewCard
                         imageSrc={review.patient.imgPath}
                         rating={review.rating}
@@ -125,16 +123,8 @@ export default function ({ doctorId, doctorName, totalFeedback, totalRating, rev
                         description={review.comment} />
 
                     <div className="border mt-4"></div>
-                </>
+                </div>
             ))}
-            {/* <ReviewCard imageSrc="resource/review-1.jpg" rating={4} name="Agnes Ayres" date="March 20, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
-            <div className="border mt-4"></div>
-            <ReviewCard imageSrc="resource/review-2.jpg" rating={5} name="Mary Astor" date="March 24, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
-            <div className="border mt-4"></div>
-            <ReviewCard imageSrc="resource/review-4.jpg" rating={3} name="Anderson" date="April 01, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
-            <div className="border mt-4"></div>
-            <ReviewCard imageSrc="resource/review-5.jpg" rating={4} name="Bradshaw" date="April 05, 2024" description="Lorem ipsum dolor sit amet consectetur adipisicing sed eiusmod tempor incididunt labore dolore magna aliqua enim." />
-            <div className="border mt-4"></div> */}
         </div>
         <div className="w-fit ">
             <button

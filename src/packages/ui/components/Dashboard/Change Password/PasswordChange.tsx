@@ -42,7 +42,6 @@ export default function () {
                             const token = localStorage.getItem("token");
                             const response = await changePassword({ token: token || "", newPassword: newPassword, oldPassword: oldPassword });
                             
-                            console.log(response);
                             if (response.error) {
                                 toast.error(response.error);
                             } else {

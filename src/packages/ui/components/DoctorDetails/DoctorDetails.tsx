@@ -40,7 +40,6 @@ export default function ({ doctorId }: { doctorId: number }) {
                 setDoctor(doc.doctor);
 
             } catch (error) {
-                console.log("failed to access doctor details");
             }
         })();
     }, []);
@@ -130,7 +129,7 @@ export default function ({ doctorId }: { doctorId: number }) {
                                 </div>
                                 <div className="grid grid-cols-3 pt-4 justify-between">
                                     {appoinment.map((appoinment: any) => (
-                                        <Slot time={appoinment} slot={slot} setSlot={setSlot} />
+                                        <Slot key={appoinment} time={appoinment} slot={slot} setSlot={setSlot} />
                                     ))}
                                 </div>
                                 <button

@@ -30,8 +30,7 @@ export async function login({ email, password }: { email: string, password: stri
                 }
             }
         });
-        console.log("Password Hash", passwordhash);
-
+        
         const checkPassword = await verify(password, passwordhash?.hash || "");
 
         if (!checkPassword) throw new Error("Password didn't matched");
@@ -44,7 +43,6 @@ export async function login({ email, password }: { email: string, password: stri
             jwtToken
         }
     } catch (error: any) {
-        console.log("Wrong Credentials:- ", error.message);
         return {
             error: "Enter correct credential"
         }

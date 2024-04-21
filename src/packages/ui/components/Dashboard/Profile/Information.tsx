@@ -35,7 +35,6 @@ export default function (props: propType) {
     const [note, setnote] = useState("")
 
     useEffect(() => {
-        console.log("Props:-", props);
         setfirstName(props.firstName ? props.firstName : "")
         setlastName(props.lastName ? props.lastName : "");
         setemail(props.email ? props.email : "");

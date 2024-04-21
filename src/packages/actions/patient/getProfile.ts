@@ -56,7 +56,6 @@ export const getProfile = async ({ token }: { token: string }) => {
         }
     } catch (error: any) {
 
-        console.log("Failed to fetch the patient infomation\nError:= ", error.message);
         return {
             error: "Failed to fetch the patient infomation"
         }

@@ -8,7 +8,6 @@ export default function () {
     useEffect(() => {
         (async function () {
             const response = await checkUser();
-            console.log(response);
 
             if (response.status === "Not Authorized") {
                 setValid("invalid")

@@ -24,7 +24,6 @@ export const getDocAppointments = async ({ doctorId, date }: { doctorId: string,
             hours
         }
     } catch (error: any) {
-        console.log("ailed to Fetch appointments \nError:= ", error.message);
         return {
             error: "Failed to Fetch appointments"
         }

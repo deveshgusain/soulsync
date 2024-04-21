@@ -53,7 +53,6 @@ export const updateProfile = async ({ token, imgPath, dob, gender, age, mobile, 
         }
     } catch (error: any) {
 
-        console.log("Failed to update the patient infomation \nError:= ", error.message);
         return {
             error: "Failed to update the patient infomation"
         }

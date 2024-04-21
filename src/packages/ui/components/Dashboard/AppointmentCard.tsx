@@ -18,9 +18,8 @@ export default function (props: any) {
                 <tbody className="p-6 text-md">
                     {props.appointments ?
                         props.appointments.map((appointment: any) => {
-
                             return (
-                                <tr className="border-b">
+                                <tr className="border-b" key={appointment.appointment}>
                                     <td><DoctorNameRow firstName={appointment.doctor.user.firstName} lastName={appointment.doctor.user.lastName} speciality={appointment.doctor.user.speciality} imgPath={appointment.doctor.imgPath} /></td>
                                     <td><ApptDateRow date={appointment.date} /></td>
                                     <td >
@@ -50,7 +49,7 @@ export default function (props: any) {
 function DoctorNameRow({ firstName, lastName, speciality, imgPath }: { firstName: string, lastName: string, speciality: string, imgPath: string }) {
     return <div className="flex items-center pl-4 py-4">
         <div>
-            <img src={imgPath} alt="doctor" className="h-14 w-14 rounded-full"/>
+            <img src={imgPath} alt="doctor" className="h-14 w-14 rounded-full" />
         </div>
         <div className="pl-2">
             <div className="text-darkblue font-semibold">

@@ -70,7 +70,6 @@ export default function () {
                                             password,
                                             role: "PATIENT",
                                         });
-                                        console.log("Response:= ", response);
 
                                         if (response.error) {
                                             toast.error(response.error);

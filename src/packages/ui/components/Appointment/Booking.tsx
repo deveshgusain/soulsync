@@ -119,14 +119,6 @@ export default function (props: propType) {
                         {"500 Rupee"}
                     </div>
                 </div>
-                {/* <div className="flex justify-between mt-4">
-                    <div>
-                        Back Pain
-                    </div>
-                    <div>
-                        {"$ 60"}
-                    </div>
-                </div> */}
                 <div className="border-b border-slate-300 mt-6">
                 </div>
                 <div className="flex justify-between mt-4 text-xl font-medium">
@@ -145,7 +137,6 @@ export default function (props: propType) {
                         onClick={async () => {
                             const token = localStorage.getItem("token") || "";
                             const appointment = await postAppointment({ token, amount: 500, bookingDate: new Date(props.date), time: props.time, doctorId: parseInt(props.doctorId), doctorNote, gender: male ? "Male" : "Female", newPatient: newPatient ? true : false });
-                            console.log(appointment);
                             router.push("/dashboard")
                         }}
                     >

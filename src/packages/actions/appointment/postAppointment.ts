@@ -36,7 +36,6 @@ export const postAppointment = async ({ token, amount, bookingDate, time, doctor
         }
     } catch (error: any) {
 
-        console.log("Failed to create appointment \nError:= ", error.message);
         return {
             error: "Failed to create appointment"
         }

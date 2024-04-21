@@ -33,7 +33,6 @@ export const addReview = async ({ token, doctorId, comment, rating, title }: (Om
         }
     } catch (error: any) {
 
-        console.log("Failed to create review\nError:= ", error.message);
         return {
             error: "Failed to create review"
         }
