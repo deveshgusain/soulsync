@@ -3,8 +3,6 @@
 import db from "../../../db"
 export const getDocAppointments = async ({ doctorId, date }: { doctorId: string, date: Date }) => {
     try {
-
-
         const appointments = await db.appointment.findMany({
             where: {
                 date: {
