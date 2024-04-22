@@ -7,12 +7,13 @@ export async function checkUser() {
         const response: any = await getUserFromToken({ token: token || "" });
         if (response.error) throw new Error(response.error);
         return {
-            status: "Authorized"
+            status: "Authorized",
+            firstName: response.firstName
         }
     } catch (error: any) {
         return {
-            status : "Not Authorized",
-            message : error.message
+            status: "Not Authorized",
+            message: error.message
         }
     }
 }

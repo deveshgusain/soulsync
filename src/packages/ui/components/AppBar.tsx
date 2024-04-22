@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function () {
     const [valid, setValid] = useState("");
+    const [firstName, setFirstName] = useState("");
     useEffect(() => {
         (async function () {
             const response = await checkUser();
@@ -13,6 +14,7 @@ export default function () {
                 setValid("invalid")
             } else {
                 setValid("valid")
+                setFirstName(response.firstName)
             }
         })();
     }, [])
@@ -52,7 +54,7 @@ export default function () {
 
                             <Link href={"/dashboard"}>
                                 <div className="border rounded-full ml-3 p-2 h-11 w-11 bg-slate-700 text-xl text-white text-center">
-                                    D
+                                    {firstName[0]}
                                 </div>
                             </Link>
                         </div>
